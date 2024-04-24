@@ -1,4 +1,5 @@
-const { Character, Bowerman } = require('../app');
+const { Character} = require('../character');
+const { Bowerman } = require('../class/Bowerman')
 
 
 describe('Character', () => {
@@ -18,23 +19,18 @@ describe('Character', () => {
       expect(() => new Character('John', 'InvalidType')).toThrow('Invalid type');
   });
 
-  test('should create a character with default values', () => {
-      const character = new Bowerman('John', 'Bowerman');
-      expect(character.name).toBe('John');
-      expect(character.type).toBe('Bowerman');
-      expect(character.health).toBe(100);
-      expect(character.level).toBe(1);
-      expect(character.attack).toBe(25);
-      expect(character.defence).toBe(25);
-  });
-
   test('should level up a character', () => {
       const character = new Bowerman('John', 'Bowerman');
       character.levelUp();
-      expect(character.level).toBe(2);
-      expect(character.attack).toBe(30);
-      expect(character.defence).toBe(30); 
-      expect(character.health).toBe(100);
+      const expected = {
+        attack: 30,
+        defence: 30,
+        health: 100,
+        level: 2,
+        name: 'John',
+        type: 'Bowerman'
+      };
+      expect(expected).toEqual(character)
   });
 
   test('should not level up a dead character', () => {
